@@ -1,7 +1,6 @@
 package vending;
 
 public class MaquinaMonedero {
-
 	private Moneda moneda;
 	private Integer cantidad;
 
