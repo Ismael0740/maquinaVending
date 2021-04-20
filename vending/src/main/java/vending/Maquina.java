@@ -1,15 +1,14 @@
 package vending;
 
+import java.util.Arrays;
+
 public class Maquina {
-	
-	
-	
-	private Producto tablaProductos[];
-	private int cantidadProductos[];
-	
-	Maquina(Producto[] tablaProductos, int[] cantidadProductos){
+
+	private MaquinaItem tablaProductos[];
+	private MaquinaMonedero maquinaMonedero[];
+
+	Maquina(MaquinaItem[] tablaProductos) {
 		this.tablaProductos = tablaProductos;
-		this.cantidadProductos = cantidadProductos;
 	}
-	
+
 }

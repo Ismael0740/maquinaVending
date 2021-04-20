@@ -1,11 +1,11 @@
 package vending;
 
-public class Producto {
+public class Moneda {
 
 	private String nombre;
 	private Integer valor;
 
-	public Producto(String nombre, Integer valor) {
+	public Moneda(String nombre, Integer valor) {
 		this.nombre = nombre;
 		this.valor = valor;
 	}
@@ -17,4 +17,5 @@ public class Producto {
 	public Integer getValor() {
 		return valor;
 	}
+
 }
