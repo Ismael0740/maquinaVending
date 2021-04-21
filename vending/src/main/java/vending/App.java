@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class App {
 
-	static Scanner entrada = new Scanner(System.in);
+	static Scanner stdin = new Scanner(System.in);
 	static Random rnd = new Random();
 
 	public static void main(String[] args) {
