@@ -2,6 +2,7 @@ package vending;
 
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Maquina {
 
@@ -30,7 +31,7 @@ public class Maquina {
 
 	public void buyItem(int i) {
 		// Lanzar excepción si no existe el producto
-		if(i < 6){
+		if (i < 6) {
 			MaquinaItem product = this.tablaProductos[i];
 			Integer costoProduct = product.getProducto().getValor();
 			Integer moneyGiven = 0;
@@ -39,18 +40,21 @@ public class Maquina {
 			while (moneyGiven < costoProduct) {
 				App.imprimir("Te faltan " + (costoProduct - moneyGiven) + " centimos");
 				Integer monedaIntroducida = stin.nextInt();
-				if(monedaIntroducida == 10 || monedaIntroducida == 20 || monedaIntroducida == 50 || monedaIntroducida == 100 || monedaIntroducida == 200){
+				if (monedaIntroducida == 10 || monedaIntroducida == 20 || monedaIntroducida == 50 || monedaIntroducida == 100
+						|| monedaIntroducida == 200) {
 					moneyGiven += monedaIntroducida;
-				} else{
+				} else {
 					App.imprimir("Introduce un valor valido");
 				}
 			}
 			Integer sobrante = moneyGiven - costoProduct;
 
-					// TODO: Realizar bucle que te devuelva la cantidad sobrante del Integer (sobrante), pero que te obligue a volver a introducir las monedas si no tiene cambio para igualar el Integer (sobrante)
+			// TODO: Realizar bucle que te devuelva la cantidad sobrante del Integer
+			// (sobrante), pero que te obligue a volver a introducir las monedas si no tiene
+			// cambio para igualar el Integer (sobrante)
 
 			product.setCantidad(product.getCantidad() - 1);
-		} else{
+		} else {
 			App.imprimir("Producto no existente");
 		}
 
@@ -84,13 +88,15 @@ public class Maquina {
 	 *
 	 * @return
 	 */
-	String menuText() {
+	String menuText(Function<String, Integer> function(String oe, Integer xd)) {
 		String msg = "";
 		int i = 0;
 		for (MaquinaItem producto : tablaProductos) {
 			msg += i + " " + producto.getInfoProducto() + "\n";
 			i++;
 		}
+
+		function("Hola");
 		return msg;
 	}
 }
