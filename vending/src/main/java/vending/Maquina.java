@@ -1,14 +1,13 @@
 package vending;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
-import java.util.function.Function;
 
 public class Maquina {
 
-	private int[] centimosAceptados = { 10, 20, 50, 100, 200 };
-
 	private MaquinaItem[] tablaProductos;
+	private Comprobador comprobador;
 
 	/**
 	 * Representa la cantidad de monedas que hay para un tipo de moneda determinada,
@@ -16,13 +15,9 @@ public class Maquina {
 	 */
 	HashMap<Integer, Integer> monedasCantidad = new HashMap<>();
 
-	Maquina(MaquinaItem[] tablaProductos) {
+	Maquina(MaquinaItem[] tablaProductos, List<Moneda> monedasValidas) {
 		this.tablaProductos = tablaProductos;
-		setHashMap();
-	}
-
-	public int[] getCentimosAceptados() {
-		return this.centimosAceptados;
+		this.comprobador = new Comprobador(monedasValidas);
 	}
 
 	public MaquinaItem[] getTablaProductos() {
@@ -35,14 +30,17 @@ public class Maquina {
 			MaquinaItem product = this.tablaProductos[i];
 			Integer costoProduct = product.getProducto().getValor();
 			Integer moneyGiven = 0;
-			Scanner stin = new Scanner(System.in);
-			// TODO: Corregir
+			Scanner stdin = new Scanner(System.in);
+
 			while (moneyGiven < costoProduct) {
 				App.imprimir("Te faltan " + (costoProduct - moneyGiven) + " centimos");
-				Integer monedaIntroducida = stin.nextInt();
-				if (monedaIntroducida == 10 || monedaIntroducida == 20 || monedaIntroducida == 50 || monedaIntroducida == 100
-						|| monedaIntroducida == 200) {
-					moneyGiven += monedaIntroducida;
+				Integer coinInt = stdin.nextInt();
+
+				// TODO: Hacer nueva función check coin que tenga como parametro un integer y
+				// busque en la lista de monedas permitidas si hay alguna con ese valor (En
+				// Comprobador.java obviamente)
+				if (comprobador.checkCoin(new Moneda("e", 2))) {
+					moneyGiven += coin;
 				} else {
 					App.imprimir("Introduce un valor valido");
 				}
@@ -72,23 +70,12 @@ public class Maquina {
 	}
 
 	/**
-	 * Metodo el cual es accedido unicamente por el constructor para inicializar el
-	 * hashmap con la cantidad de monedas de cada tipo indicado en centimosAceptados
-	 * (Mas correcto un enum)
-	 */
-	private void setHashMap() {
-		for (int moneda : centimosAceptados) {
-			monedasCantidad.put(moneda, 20);
-		}
-	}
-
-	/**
 	 * Retorna un texto el cual se puede imprimir por pantalla, correctamente
 	 * formateado de los items, costo y unidades de estos
 	 *
 	 * @return
 	 */
-	String menuText(Function<String, Integer> function(String oe, Integer xd)) {
+	String menuText() {
 		String msg = "";
 		int i = 0;
 		for (MaquinaItem producto : tablaProductos) {
@@ -96,7 +83,6 @@ public class Maquina {
 			i++;
 		}
 
-		function("Hola");
 		return msg;
 	}
 }
